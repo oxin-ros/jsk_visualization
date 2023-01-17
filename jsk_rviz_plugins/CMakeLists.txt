@@ -2,26 +2,35 @@
 # https://github.com/ros-visualization/rviz/pull/634
 
 # http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.10.2)
 project(jsk_rviz_plugins)
-if("$ENV{ROS_DISTRO}" STRGREATER "melodic")
-  add_compile_options(-std=c++14)
-else()
-  add_compile_options(-std=c++11)
-endif()
+
+# C++ configs.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Load catkin and all dependencies required for this package
 # TODO: remove all from COMPONENTS that are not catkin packages.
-find_package(catkin REQUIRED COMPONENTS rviz jsk_hark_msgs jsk_footstep_msgs jsk_recognition_utils
-  people_msgs
-  message_generation std_msgs diagnostic_msgs cv_bridge
-  jsk_topic_tools
-  image_geometry
-  view_controller_msgs
-  geometry_msgs
+find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  diagnostic_msgs 
   dynamic_reconfigure
-  jsk_recognition_msgs
+  geometry_msgs
+  image_geometry
+  jsk_footstep_msgs 
   jsk_gui_msgs
-  message_filters)
+  jsk_hark_msgs 
+  jsk_recognition_msgs
+  jsk_recognition_utils
+  jsk_topic_tools
+  message_filters
+  message_generation 
+  people_msgs
+  rviz 
+  std_msgs 
+  view_controller_msgs
+)
 
 # Use ccache if installed to make it fast to generate object files
 if (CMAKE_VERSION VERSION_LESS 3.4)
